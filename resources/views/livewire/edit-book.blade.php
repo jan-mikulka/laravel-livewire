@@ -1,8 +1,6 @@
-<div x-data>
+<div>
     <x-layouts.admin>
-        <x-slot name="title">
-            Edit Book
-        </x-slot>
+        <x-slot name="title">Edit Book</x-slot>
         <div class="m-auto mb-4 bg-white p-4 rounded-lg shadow">
             <h1 class="text-2xl font-bold mb-4">Edit Book</h1>
             @if (session('status'))
@@ -10,7 +8,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <form wire:submit="save" enctype="multipart/form-data">
+            <form wire:submit.prevent="saveBook" enctype="multipart/form-data">
                 <div>
                     <label for="title">Title</label>
                     <input type="text" id="title" wire:model="form.title"
@@ -29,10 +27,12 @@
                         class="w-full border border-gray-300 rounded-md">
                     @error('form.isbn') <span class="error">{{ $message }}</span> @enderror
                 </div>
-
                 <button type="submit"
-                    class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                    class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save
+                    Book</button>
             </form>
+
+            <livewire:edit-book-chapters :book="$book" />
         </div>
     </x-layouts.admin>
 </div>

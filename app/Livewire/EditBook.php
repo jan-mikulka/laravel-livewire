@@ -2,30 +2,38 @@
 
 namespace App\Livewire;
 
-use App\Livewire\Forms\BookForm;
 use App\Models\Book;
+use Livewire\Component;
 
-class EditBook extends AdminComponent
+class EditBook extends Component
 {
-    public BookForm $form;
     public Book $book;
+    public array $form = [];
 
     public function mount(Book $book)
     {
         $this->book = $book;
-        $this->form->setBook($book);
+        $this->form = [
+            'title' => $book->title,
+            'author' => $book->author,
+            'isbn' => $book->isbn,
+        ];
     }
 
-    public function save()
+    public function saveBook()
     {
-        $this->form->update();
+        $this->validate([
+            'form.title' => 'required|string|max:255',
+            'form.author' => 'required|string|max:255',
+            'form.isbn' => 'nullable|string|max:20',
+        ]);
 
-        session()->flash('status', 'Book successfully updated.');
-        $this->redirectRoute('dashboard.books.edit', $this->book);
+        $this->book->update($this->form);
+        session()->flash('status', 'Book updated successfully!');
     }
 
     public function render()
     {
-        return view('livewire.edit-book')->layout('components.layouts.admin');
+        return view('livewire.edit-book');
     }
 }
