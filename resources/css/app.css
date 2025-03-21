@@ -1,7 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-[x-cloak] {
-    display: none;
+@plugin "daisyui" {
+}
+
+.mary-table-pagination span[aria-current="page"]>span {
+    @apply bg-primary text-base-100
 }
