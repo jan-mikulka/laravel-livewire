@@ -14,6 +14,22 @@ class WordList extends AdminComponent
 {
     use withPagination;
 
+    #[Computed]
+    public function headers(): array
+    {
+        return [
+            ['key' => 'name', 'label' => 'Title', 'sortable' => true],
+            ['key' => 'content', 'label' => 'Content', 'sortable' => true],
+            [
+                'key' => 'languages',
+                'label' => 'Languages',
+                'sortable' => false,
+                'format' => fn($row, $field) => collect($field)->map(fn($language) => "<span class='bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900'>{$language->name}</span>")->implode(''),
+
+            ],
+        ];
+    }
+
     public function delete(Word $word)
     {
         $word->delete();
@@ -31,7 +47,7 @@ class WordList extends AdminComponent
         $query = Word::query();
 
         return view('livewire.word-list', [
-            'words' => $query->paginate(10)
+            'words' => $query->paginate(10),
         ]);
 
     }

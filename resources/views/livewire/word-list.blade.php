@@ -9,44 +9,21 @@
             {{ session('status') }}
         </div>
     @endif
-    <div class="my-3">
-        {{$words->links()}}
-    </div>
-    <table class="w-full">
-        <thead class="text-xs uppercase bg-gray-200 text-gray-700">
-            <tr>
-                <th class="px-6 py-3">Title</th>
-                <th class="px-6 py-3">Content</th>
-                <th class="px-6 py-3">Languages</th> {{-- Added Language column --}}
-                <th class="px-6 py-3"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($words as $word)
-                <tr wire:key="{{$word->id}}" class="hover:bg-gray-100">
-                    <td class="px-6 py-3">{{$word->name}}</td>
-                    <td class="px-6 py-3">{{$word->content}}</td>
-                    <td class="px-6 py-3">
-                        @foreach($word->languages as $language)
-                            <span
-                                class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-900">{{ $language->name }}</span>
-                        @endforeach
-                    </td> {{-- Added language chips --}}
-                    <td class="px-6 py-3 flex items-center">
-                        <a class="p-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-sm"
-                            href="/dashboard/words/{{$word->id}}/edit" wire:navigate>
-                            Edit
-                        </a>
-                        <button class="p-2 ml-2 bg-red-400 hover:bg-red-600 text-gray-800 rounded-sm"
-                            wire:click="delete({{$word->id}})" wire:confirm="Are you sure you want to delete this word?">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <div class="mt-3">
-        {{$words->links()}}
-    </div>
+
+    <x-mary-table :rows="$words" :headers="$this->headers" with-pagination>
+        @scope('cell_languages', $value)
+        @foreach ($value->languages as $language)
+            <x-mary-badge :value="$language->name" />
+        @endforeach
+        @endscope
+
+        @scope('actions', $word)
+        <div class="flex space-x-2">
+            <x-mary-button icon="o-pencil" href="/dashboard/words/{{ $word->id }}/edit" wire:navigate spinner
+                class="btn-sm" />
+            <x-mary-button icon="o-trash" wire:click="delete({{ $word->id }})" spinner
+                wire:confirm="Are you sure you want to delete this word?" class="btn-sm" />
+        </div>
+        @endscope
+    </x-mary-table>
 </div>
