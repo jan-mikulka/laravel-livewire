@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -27,12 +30,16 @@
                                         Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard/words"
-                                        class="block py-2 px-3 text-blue-500 hover:text-blue-700">Words</a>
+                                    <a href="/dashboard/sources"
+                                        class="block py-2 px-3 text-blue-500 hover:text-blue-700">Sources</a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard/books"
-                                        class="block py-2 px-3 text-blue-500 hover:text-blue-700">Books</a>
+                                    <a href="/dashboard/statements"
+                                        class="block py-2 px-3 text-blue-500 hover:text-blue-700">Statements</a>
+                                </li>
+                                <li>
+                                    <a href="/dashboard/words"
+                                        class="block py-2 px-3 text-blue-500 hover:text-blue-700">Words</a>
                                 </li>
                             </ul>
                             <ul
