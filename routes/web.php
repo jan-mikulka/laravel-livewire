@@ -2,7 +2,9 @@
 
 use App\Livewire\BookList;
 use App\Livewire\CreateBook;
+use App\Livewire\CreateStatement;
 use App\Livewire\EditBook;
+use App\Livewire\StatementList;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Login;
@@ -35,6 +37,8 @@ Route::middleware([
     Route::get('/dashboard/words/{word}/edit', EditWord::class);
     Route::get('/dashboard/sources', SourceList::class)->name('dashboard.sources.index');//->lazy();
     Route::get('/dashboard/sources/create', CreateSource::class)->name('dashboard.sources.create');
+    Route::get('/dashboard/statements', StatementList::class)->name('dashboard.statements.index');
+    Route::get('/dashboard/statements/create', CreateStatement::class)->name('dashboard.statements.create');
 
     Route::get('/dashboard/books', BookList::class)->name('dashboard.books.index');//->lazy();
     Route::get('/dashboard/books/create', CreateBook::class)->name('dashboard.books.create');
