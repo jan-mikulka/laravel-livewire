@@ -1,14 +1,13 @@
 <div>
-    <h1 class="mb-4">Create Statement</h1>
+    <h1 class="mb-4">Edit Statement</h1>
     <form wire:submit="save">
-        <x-mary-choices wire:model.live="form.source_id" :options="$sources" label="Source"
-            placeholder="Search a source" search-function="searchSources" single searchable />
+        <x-mary-choices wire:model="form.source_id" :options="$sources" label="Source" placeholder="Search a source"
+            single searchable />
 
         @if ($form->source_id)
                 @php
                     $selectedSource = \App\Models\Source::find($form->source_id);
                 @endphp
-                {{ $selectedSource }}
                 @if ($selectedSource->type == \App\Enums\SourceType::Audio || $selectedSource->type == \App\Enums\SourceType::Video)
                     <x-mary-input wire:model="form.time" type="time" label="Time" placeholder="e.g., 00:00" />
                 @elseif ($selectedSource->type === \App\Enums\SourceType::Book)

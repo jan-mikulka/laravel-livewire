@@ -6,10 +6,12 @@ use App\Enums\StatementType;
 use App\Livewire\Forms\StatementForm;
 use App\Models\Source;
 use App\Models\Statement;
-use Livewire\Component;
+use App\Livewire\Traits\SearchableSources;
+
 
 class CreateStatement extends AdminComponent
 {
+    use SearchableSources;
     public StatementForm $form;
 
     public function mount()
@@ -27,16 +29,6 @@ class CreateStatement extends AdminComponent
 
         session()->flash('status', 'Statement successfully created.');
         $this->redirectRoute('dashboard.statements.index');
-    }
-
-    public function search(string $value = '')
-    {
-
-        return Source
-            ::where('name', 'like', "%$value%")
-            ->take(10)
-            ->orderBy('name')
-            ->get();
     }
 
     public function render()
